@@ -68,7 +68,7 @@ class products(models.Model):
     price=models.IntegerField(null=True)
     offer2=models.CharField(max_length=200,default='d')
     caption=models.CharField(max_length=200,default='d')
-    Quantity=models.CharField(max_length=50,default='d')
+    # Quantity=models.CharField(max_length=50,default='d')
     airess1=models.ImageField(upload_to='statics/images',default='e')
     airess2=models.ImageField(upload_to='statics/images',default='e')
     airess3=models.ImageField(upload_to='statics/images',default='e')
