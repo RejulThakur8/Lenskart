@@ -1,6 +1,38 @@
 {% extends 'base.html' %}
 
 {% block start %}
-
+{% load static %}
+<div class="container bg-primary-subtle ps-5 pe-5 pt-5 pb-4 mt-3 mb-3">
+    <div class="row g-3 ps-5 pe-5 pb-5 me-0 ms-1 mt-1 mb-4">
+        <h1 class="text-center">Contact Us</h1>
+        <div class="row ps-0 ms-0 mt-3">
+            <div class="col bg-transparent">
+                <label for="validationcustom01" class="form-label">First name</label>
+                <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+            </div>
+            <div class="col bg-white">
+                <label for="validationcustom014" class="form-label">Last name</label>
+                <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+            </div>
+        </div>
+        <div class="row ps-0 ms-0">
+            <div class="col bg-white">
+                <label for="validationcustom01" class="form-label">Email</label>
+                <input type="email" class="form-control" id="floatingInputValue" placeholder="name@example.com" value="">
+                {% comment %} <label for="floatingInputValue">Email</label> {% endcomment %}
+            </div>
+        </div>
+        <div class="row ps-0 ms-0">
+            <div class="col bg-white">
+                <label for="validationcustom01" class="form-label">Message</label>
+                <textarea class="form-control" placeholder="Leave a message here" id="floatingTextarea2" style="height: 100px"></textarea>
+                {% comment %} <label for="floatingTextarea2">Message</label> {% endcomment %}
+            </div>
+            <div class="d-grid gap-2 ms-3 pe-5">
+                <input class="btn btn-primary" type="submit" value="Submit">
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

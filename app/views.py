@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth import login,authenticate,logout 
 from django.shortcuts import render,redirect
-from .models import sign,products,category,slider,glass,shape,banner,cart,wishlist,google
+from .models import sign,products,category,slider,glass,shape,banner,cart,wishlist,google,contact
 from django.contrib.auth.models import User
 from django.contrib.auth import hashers
 import os
@@ -239,7 +239,10 @@ def wish(request):
 
 def contaact(request):
     g=glass.objects.all()
-    return render(request,'contact.html',{'data2':g[:5]})
+    cont=contact.objects.all()
+    for i in cont:
+        i.image=os.path.basename(i.image.name)
+    return render(request,'contact.html',{'data':cont,'data2':g[:5]})
 
 def gogle(request):
     go=google.objects.all()

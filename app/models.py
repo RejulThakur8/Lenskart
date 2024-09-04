@@ -109,3 +109,5 @@ class slider(models.Model):
 class google(models.Model):
     image=models.ImageField(upload_to='statics/images',default='i')
     
+class contact(models.Model):
+    image=models.ImageField(upload_to='statics/images')
