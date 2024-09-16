@@ -30,15 +30,16 @@ def log(request):
         print(email,password,Users)
         if Users is not None:
             login(request, Users)
-        d=category.objects.all()
-        sl=slider.objects.all()
-        g=glass.objects.all()
-        for sd in sl:
-            sd.image=os.path.basename(sd.image.url)
+            d=category.objects.all()
+            sl=slider.objects.all()
+            g=glass.objects.all()
+
+            for sd in sl:
+                sd.image=os.path.basename(sd.image.url)
             for j in d:
                 j.image1=os.path.basename(j.image1.url)
                 return render(request,'index.html',{'data1':d,'slider':sl,'data2':g})
-            return render(request,'index.html')
+                # return render(request,'index.html',{'data1':d,'slider':sl,'data2':g})
         else:
             return render(request,'s.html')
         # if users:
