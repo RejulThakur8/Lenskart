@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 
-.co{
+/* .co{
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
+    
     gap: 2rem;
     width: 100%;
     max-width: 50rem;
@@ -31,14 +31,12 @@
     letter-spacing: .03rem;
 }
 .product-box{
-    /* display: flex; */
+    
     justify-content: center;
     gap: 2rem;
-    /* margin-top: 20px; */
+    
 }
-/* img{
-    width: 8rem;
-} */
+
 .info-box >h5{
     font-size: 1.3rem;
     margin-top: 50px;
@@ -96,7 +94,7 @@ hr{
 }
 .cost-box >div{
     display: flex;
-    /* justify-content: space-between; */
+    
     font-size: 1.3rem;
 }
 .cost-box>div:nth-of-type(1)>p:nth-of-type(2){
@@ -247,4 +245,17 @@ hr{
 
 .fa-regular{
     font-size: 30px ;
+} */
+
+.card-title {
+    font-size: 1.2rem;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: #fff;
 }

@@ -240,7 +240,7 @@ def ct(request):
 
 def remove(request):
     if request.method=="POST":
-        name = request.POST.get("pro_d1")
+        name = request.POST.get("pro_d")
 
         data = cart.objects.filter(pro_d=name, user=request.user)
         data.delete()
