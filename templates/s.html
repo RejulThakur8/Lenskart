@@ -4,6 +4,7 @@
 {% block start %}
 <section class="forms-section">
 
+
   <div class="forms">
     <div class="form-wrapper is-active">
       <button type="button" class="switcher switcher-login">
@@ -14,14 +15,25 @@
         {% csrf_token %}
 
         <fieldset>
+          {% if messages %}
+
+          {% for message in messages %}
+
+          <div class="alert alert-{{messages.tags}} alert-dismissible fade show" role="alert">
+            {{ message }}
+          </div>
+
+          {% endfor %}
+          {% endif %}
+
           <legend>Please, enter your email and password for login.</legend>
           <div class="input-block">
-            <label for="login-email">E-mail</label>
-            <input id="login-email" type="text" name="email" required>
+            <label for="email">E-mail</label>
+            <input id="email" type="text" name="email" required>
           </div>
           <div class="input-block">
-            <label for="login-password">Password</label>
-            <input id="login-password" type="password" name="password" required>
+            <label for="password">Password</label>
+            <input id="password" type="password" name="password" required>
           </div>
         </fieldset>
         <button type="submit" class="btn-login">Login</button>
@@ -35,6 +47,16 @@
       <form action="/lo/" method="POST" class="form form-signup">
         {% csrf_token %}
         <fieldset>
+          {% if messages %}
+
+          {% for message in messages %}
+
+          <div class="alert alert-{{messages.tags}} alert-dismissible fade show" role="alert">
+            {{ message }}
+          </div>
+
+          {% endfor %}
+          {% endif %}
           <legend>Please, enter your email, password and password confirmation for sign up.</legend>
           <div class="input-block">
             <label for="signup-name">Name</label>

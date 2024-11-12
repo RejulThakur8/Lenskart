@@ -11,8 +11,6 @@ class sign(models.Model):
         return self.name
     
 
-    
-
 class category(models.Model):
      image1=models.ImageField(upload_to='statics/images',default='b')
      category_name=models.CharField(max_length=50)
@@ -98,8 +96,14 @@ class wishlist(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
     
 
+class contactus(models.Model):
+    fname = models.CharField(null=True,blank=True,max_length=50)
+    lname = models.CharField(null=True,blank=True,max_length=50)
+    email = models.EmailField()
+    message = models.TextField(default="A")
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
 
-
+   
 
 class slider(models.Model):
     image=models.ImageField(upload_to='statics/images',default='i')
@@ -109,5 +113,3 @@ class slider(models.Model):
 class google(models.Model):
     image=models.ImageField(upload_to='statics/images',default='i')
     
-class contact(models.Model):
-    image=models.ImageField(upload_to='statics/images')

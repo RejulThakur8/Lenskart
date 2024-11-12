@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import sign,products,category,slider,glass,shape,banner,cart,wishlist,google,contact
+from .models import sign,products,category,slider,glass,shape,banner,cart,wishlist,google,contactus
 # Register your models here
 
 
@@ -13,4 +13,4 @@ admin.site.register(banner)
 admin.site.register(cart)
 admin.site.register(wishlist)
 admin.site.register(google)
-admin.site.register(contact)
+admin.site.register(contactus)

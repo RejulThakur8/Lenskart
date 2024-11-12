@@ -1,55 +1,39 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.contrib.auth import login,authenticate,logout 
+from django.contrib.auth import authenticate, login, logout 
 from django.shortcuts import render,redirect
-from .models import sign,products,category,slider,glass,shape,banner,cart,wishlist,google,contact
+from .models import sign,products,category,slider,glass,shape,banner,cart,wishlist,google,contactus
 from django.contrib.auth.models import User
 from django.contrib.auth import hashers
+from django.contrib import messages
 import os
 
 
 
 def lo(request):
+    g=glass.objects.all()
     if request.method=="POST":
         name=request.POST.get("name")
         email=request.POST.get("email")
         password=request.POST.get("password")
         password=hashers.make_password(password)
+
+        user = User.objects.filter(email=email)
+
+        if user.exists():
+            messages.info(request,'Email Already Exists! Please Enter New Mail')
+            return redirect("/lo/",{'data2':g[:5]})
+            
         User.objects.create(username=name,email=email,password=password)
-        g=glass.objects.all()
-    return render(request,'s.html',{'data':g})
+
+        messages.success(request,'Account Created Succesfully')
+        
+
+    return render(request,'s.html',{'data2':g[:5]})
 
 
 
-def log(request): 
-    if request.method=="POST":
-        email=request.POST.get("email")
-        password=request.POST.get("password")
-        # user=sign.objects.filter(email=email,password=password)
-        Users=authenticate(username=email,password=password)
-        print(email,password,Users)
-        if Users is not None:
-            login(request, Users)
-            d=category.objects.all()
-            sl=slider.objects.all()
-            g=glass.objects.all()
-
-            for sd in sl:
-                sd.image=os.path.basename(sd.image.url)
-            for j in d:
-                j.image1=os.path.basename(j.image1.url)
-                return render(request,'index.html',{'data1':d,'slider':sl,'data2':g})
-                # return render(request,'index.html',{'data1':d,'slider':sl,'data2':g})
-        else:
-            return render(request,'s.html')
-        # if users:
-        #     return render(request,'index.html',{"name":users[0].name})
-    return render(request,'s.html')
-
-def logoutUser(request):
-
-    logout(request)
-
+def log_users(request): 
     d=category.objects.all()
     sl=slider.objects.all()
     g=glass.objects.all()
@@ -57,7 +41,43 @@ def logoutUser(request):
         sd.image=os.path.basename(sd.image.url)
     for j in d:
         j.image1=os.path.basename(j.image1.url)
-    return render(request,'index.html',{'data1':d,'slider':sl,'data2':g})
+    if request.method=="POST":
+        email=request.POST.get("email")
+        password=request.POST.get("password")
+
+        if not User.objects.filter(email = email).exists():
+            messages.warning(request,"Invalid Mail")
+            return redirect('/login/')
+        # user=sign.objects.filter(email=email,password=password)
+
+        user = authenticate(email=email,password=password)
+
+        print(email,password,user)
+        if user is None:
+            messages.error(request,"Invalid Password")
+            return redirect('/login/',{'data1':d,'slider':sl,'data2':g[:5]})
+        else:
+            login(request, user)
+            messages.success(request,"{{request.user}} you are lonin successfully")
+            return redirect('/home/',{'data1':d,'slider':sl,'data2':g[:5]})
+
+            
+                # return render(request,'index.html',{'data1':d,'slider':sl,'data2':g[:5]})
+        # if users:
+        #     return render(request,'index.html',{"name":users[0].name})
+    return render(request,'s.html',{'data1':d,'slider':sl,'data2':g[:5]})
+
+def logout_users(request):
+    d=category.objects.all()
+    sl=slider.objects.all()
+    g=glass.objects.all()
+    for sd in sl:
+        sd.image=os.path.basename(sd.image.url)
+    for j in d:
+        j.image1=os.path.basename(j.image1.url)
+
+    logout(request)
+    return render(request,'index.html',{'data1':d,'slider':sl,'data2':g[:4]})
 
 def si(request):
     return render(request,'s.html')
@@ -206,19 +226,29 @@ def ct(request):
     print("hey")
     g=glass.objects.all()
     if request.method=="POST":
-       qty=request.POST.get('qyt')
-       name=request.POST.get('proname')
-       print(name)
-       tpro=products.objects.get(pro_d=name)
-       print(tpro)
-       price=request.POST.get('price')
-       print(price)
-       tp=int(price) * int(qty)
-       cart.objects.create(pro_d=tpro,quantity=qty,user=request.user,price=tp)
+       Cart = products.objects.get(id=request.POST["iid"])
+       qyt = request.POST['quantity']
+       print(Cart)
+       tp=int(Cart.price) * int(qyt)
+       cart.objects.create(pro_d=Cart,quantity=qyt,user=request.user,price=tp)
     data=cart.objects.filter(user=request.user)
+    Total=0
     for i in data:
           i.pro_d.image=os.path.basename(i.pro_d.image.name)
-    return render(request,'cart.html',{'data':data,'data2':g[:5]})
+          Total+=int(i.price)
+    return render(request,'cart.html',{'data':data,'Total':Total,'data2':g[:5]})
+
+def remove(request):
+    if request.method=="POST":
+        name = request.POST.get("pro_d1")
+
+        data = cart.objects.filter(pro_d=name, user=request.user)
+        data.delete()
+
+        Total=0
+        for i  in data:
+            Total+=int(i.price)
+    return redirect('/cart/')
 
 def wish(request):
     print("wishh")
@@ -240,10 +270,15 @@ def wish(request):
 
 def contaact(request):
     g=glass.objects.all()
-    cont=contact.objects.all()
-    for i in cont:
-        i.image=os.path.basename(i.image.name)
-    return render(request,'contact.html',{'data':cont,'data2':g[:5]})
+    if request.method=="POST":
+        fname = request.POST.get("First name")
+        lname = request.POST.get("Last name")
+        email = request.POST.get("email")
+        message = request.POST.get("message")
+
+        contactus.objects.create(fname = fname,lname=lname,email=email,message=message,user=request.user)
+
+    return render(request,'contact.html',{'data2':g[:5]})
 
 def gogle(request):
     go=google.objects.all()

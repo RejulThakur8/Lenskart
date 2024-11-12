@@ -4,72 +4,71 @@
 
 {% load static %}
 
-
-
-<div class="co" style="margin-left: 330px;">
-    <div class="title-box">
-        <h1>Your shopping cart</h1>
-        <!-- <p>ID: 548856</p> -->
+<div class="container my-5">
+    <div class="title-box text-center mb-5">
+        <h1 class="display-4 fw-bold">Your Shopping Cart</h1>
+        <p class="text-muted">Review and manage your items below.</p>
     </div>
-    {% for i in data %}
-    <div class="detal" style="display: flex;">
-        <form method="post" action="/cart/" style="margin-left: 5px; display: flex;">
-            <div class="product-box">
-                <div class="img-box">   
-                    <img src="{% static 'images/' %}{{i.pro_d.image.name}}" style="width: 350px;height: 200px;">
-                </div>
-                <div class="info-box">
-                    <h5>{{i.pro_d}}</h5>
-                    <p class="stock">In stock</p>
 
-                    <!-- <div class="amount-box">
-                        <div class="minus-box">
-                            <i class="fa-solid fa-minus"></i>
+    {% if data %}
+        <div class="row">
+            {% for i in data %}
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 shadow border-0">
+                    <div class="row g-0">
+                        <div class="col-md-5">
+                            <img src="{% static 'images/' %}{{ i.pro_d.image.name }}" class="img-fluid rounded-start" alt="{{ i.pro_d }}">
                         </div>
-                        <input type="number" readonly value="1" min="0" max="100" class="amount" id="amount">
-                        <div class="plus-box">
-                            <i class="fa-solid fa-plus"></i>
+                        <div class="col-md-7">
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <h5 class="card-title fw-bold">{{ i.pro_d }}</h5>
+                                    <p class="text-success mb-2">In Stock</p>
+                                    <p class="text-muted mb-4">Standard Package: <strong>FREE</strong></p>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <p class="mb-1">Price:</p>
+                                        <h5 class="text-primary fw-bold">{{ i.price }},-</h5>
+                                    </div>
+                                </div>
+                                <form method="post" action="/remove/" class="mt-3">
+                                    {% csrf_token %}
+                                    <button class="btn btn-outline-danger w-100">Remove Item</button>
+                                </form>
+                            </div>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
-            <hr>
-            <div class="cost">
-                <div class="cost-box">
-                    <div>
-                        <p>Standard Package</p>
-                        <p>FREE</p>
-                    </div>
-                    <div class="price">
-                        <p>Price:</p>
-                        <p class="VAT">{{i.pro_d.price}},-</p>
-                        <!-- <p class="VAT">{{i.pro_d.price}},-</p> -->
-                    </div>
-                    <div class="total">
-                        <p>Total Price:</p>
-                        <p class="NOK">{{i.price}},-</p>
+            {% endfor %}
+        </div>
+
+        <div class="promo-section mt-2 w-75">
+            <div class="row justify-content-between align-items-center">
+                <div>
+                    <p class="mb-1">Total Price:</p>
+                    <h5 class="text-danger fw-bold">{{ Total }},-</h5>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group d-flex w-100">
+                        <input type="text" class="form-control border rounded" maxlength="100" id="promo" placeholder="Enter promo code">
+                        <button class="btn btn-outline-secondary" type="button">Apply</button>
                     </div>
                 </div>
-                <p class="gift" style="margin-left: 50px;width: 306px;">Got a gift card or a promotional code?</p>
-                <span class="applied">Promo Applied</span>
+                <div class="col-md-6 text-end">
+                    <button class="btn btn-success btn-lg fw-bold">Proceed to Checkout</button>
+                </div>
             </div>
-           
-        </form>
-        <a class="remove" style="top:7px">
-            <i class="fa-regular fa-circle-xmark"></i>
-        </a>
-    </div>
-    {% endfor %}
-    <button class="Checkout-btn">Process To Checkout</button>
-    <div class="promo-box">
-        <h5>Enter your promo code</h5>
-        <input type="text" maxlength="6" id="promo">
-        <button class="send-promo">Send</button>    
-    </div>
+        </div>
+    {% else %}
+        <div class="alert alert-warning text-center mt-5" role="alert">
+            <h4 class="alert-heading">Your Cart is Empty!</h4>
+            <p>Browse our products and add your favorites to the cart.</p>
+        </div>
+    {% endif %}
 </div>
+
 <script src="{% static 'js/cart.js' %}"></script>
-
-
-
 
 {% endblock %}

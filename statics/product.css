@@ -83,78 +83,20 @@ h2{
 .head{
     font-size: 25px;
 }
-
-
-
-
-
-
-
-
-
-
-
-* {
-    box-sizing: border-box;
-  }
-  
-  /* body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
-  } */
-  
-  .quantity {
-    display: flex;
-    border: 2px solid #3498db;
-    border-radius: 4px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 103.2px;
-    margin-left: 0px;
-  }
-  
-  .quantity button {
-    background-color: #3498db;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    font-size: 20px;
-    width: 30px;
-    height: auto;
-    text-align: center;
-    transition: background-color 0.2s;
-  }
-  
-  .quantity button:hover {
-    background-color: #2980b9;
-  }
-  
-  .input-box {
-    width: 40px;
-    text-align: center;
-    border: none;
-    padding: 8px 10px;
-    font-size: 16px;
-    outline: none;
-  }
-  
-  /* Hide the number input spin buttons */
-  .input-box::-webkit-inner-spin-button,
-  .input-box::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  
-  .input-box[type="number"] {
-    -moz-appearance: textfield;
-  }
-
-.q{
-    display: flex;
+.quantities{
+    width: 47%;
+    border:rgb(32, 143, 255) solid;
 }
-  
+
+.quantities span{
+    width: 35%;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.quantities span.num{
+    border-right: 2px solid rgb(32, 143, 255);
+    border-left: 2px solid rgb(32, 143, 255);
+    pointer-events: none;
+}
