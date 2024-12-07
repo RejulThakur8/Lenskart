@@ -14,30 +14,30 @@
             {{i.cont}}
         </div>
     </div>
-    <div class="imag" style="display: flex;">
+    <div class="conatiner" style="display: flex;">
 
         <div class="product" style="margin-top: 20px;">
             <img src="{% static 'images/' %}{{i.image2}}"
-                style="height: 500px;width: 500px;margin-top: 1px;border-radius: 10px; margin-right: 5px;border: solid;">
+                style="height: 450px;width: 450px;margin-top: 1px;border-radius: 10px; margin-right: 5px;border: solid;">
             <img src="{% static 'images/' %}{{i.image3}}"
-                style="height: 500px;width: 500px;margin-top: 1px;border-radius: 10px;;border: solid;">
+                style="height: 450px;width: 450px;margin-top: 1px;border-radius: 10px;;border: solid;">
             <div class="im" style="margin-top: 20px;">
                 <img src="{% static 'images/' %}{{i.image4}}"
-                    style="height: 500px;width: 500px;margin-top: 1px;border-radius: 10px; margin-right: 5px;;border: solid;">
+                    style="height: 450px;width: 450px;margin-top: 1px;border-radius: 10px; margin-right: 5px;;border: solid;">
                 <img src="{% static 'images/' %}{{i.image5}}"
-                    style="height: 500px;width: 500px;margin-top: 1px;border-radius: 10px;;border: solid;">
+                    style="height: 450px;width: 450px;margin-top: 1px;border-radius: 10px;;border: solid;">
             </div>
             <div class="img1" style="margin-top: 20px;">
                 <img src="{% static 'images/' %}{{i.image6}}"
-                    style="height: 500px;width: 500px;margin-top: 1px;border-radius: 10px; margin-right: 5px;;border: solid;">
+                    style="height: 450px;width: 450px;margin-top: 1px;border-radius: 10px; margin-right: 5px;;border: solid;">
                 <img src="{% static 'images/' %}{{i.image7}}"
-                    style="height: 500px;width: 500px;margin-top: 1px;border-radius: 10px;;border: solid;">
+                    style="height: 450px;width: 450px;margin-top: 1px;border-radius: 10px;;border: solid;">
             </div>
             <div class="img2" style="margin-top: 20px;">
                 <img src="{% static 'images/' %}{{i.image8}}"
-                    style="height: 500px;width: 500px;margin-top: 1px;border-radius: 10px; margin-right: 5px;;border: solid;">
+                    style="height: 450px;width: 450px;margin-top: 1px;border-radius: 10px; margin-right: 5px;;border: solid;">
                 <img src="{% static 'images/' %}{{i.image9}}"
-                    style="height: 500px;width: 500px;margin-top: 1px;border-radius: 10px;;border: solid;;border: solid;">
+                    style="height: 450px;width: 450px;margin-top: 1px;border-radius: 10px;;border: solid;;border: solid;">
             </div>
             
 
@@ -46,12 +46,12 @@
             {% csrf_token %}
             <input type="hidden" name="iid" value="{{i.id}}">
             <div class="detail">
-                <p>{{i.name}}</p>
+                <p class="text-primary">{{i.name}}</p>
                 <h1>{{i.pro_d}}</h1>
                 <p>{{i.description1}}</p>
-                <h5 style="width: 181.8px;">{{i.rating1}}</h5>
-                <h2>₹{{i.price}}</h2>
-                <h3>{{i.offer2}}</h3>
+                <h5 class="">{{i.rating1}}</h5>
+                <h2 class="text-success">₹{{i.price}}</h2>
+                <h3 class="text-danger">{{i.offer}}</h3>
                 <div class="q ms-0 d-flex">
                     <h4 class="m-0 ps-0">Quantity:</h4>
                     <input type="number" class="rounded ms-3" placeholder="Quantity" name="quantity" id="quantity" value="1" style="width:30px">
@@ -59,7 +59,7 @@
                 <input type="hidden" name="proname" value="{{i.pro_d}}">
                 <input type="hidden" name="price" value="{{i.price}}">
 
-                <input type="submit" class="inp" value="Add To Cart" style="height: 38px; border-radius: 4px;">
+                <button type="submit" class="btn btn-primary btn-lg m-3 w-75" value="Add To Cart">Add To Cart</button>
         </form>
                 <br>
                 <img src="{% static 'images/' %}{{i.airess1}}">
@@ -78,7 +78,6 @@
                 <br>
                 <img src="{% static 'images/' %}{{i.airess8}}">
                 <br>
-                <img src="{% static 'images/' %}{{i.airess9}}">
             </div>
 
     </div>

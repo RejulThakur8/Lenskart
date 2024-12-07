@@ -197,18 +197,66 @@ h6{
     background-color: black;
 }
 
-/* #hrr{
-    width: 95%;
-} */
-/* 
-section.sc{
-    height: max-content;
-} */
+.banner-btn{
+    top: 68%;
+    left: 43%;
+    border-color: chartreuse;
+    border-radius: 20px;
+    color: chartreuse;
+    animation: infinite 2s banners;
+}
+
+@keyframes banners{
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.banner-btn:hover{
+    background-color: rgba(142, 241, 42, 0.973);
+    border-color: rgba(142, 241, 42, 0.973);
+    transform: scale(1.2);
+}
 
 
-/* .bn{
-    margin-top: 26%;
-} */
+
+.hr-lines3{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    column-gap: 1.6rem;
+    width: 87%;
+}
+
+.hr-lines3::before,.hr-lines3::after{
+    content:" ";
+    display: block;
+    height: 1px;
+    /* width: 30%;
+    position: absolute; */
+    background-color: black;
+}
+.hr-lines4 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    column-gap: 1.6rem;
+    width: 85%;
+}
+
+
+.hr-lines4::before,.hr-lines4::after{
+    content:"";
+    display: block;
+    height: 1px;
+    background-color: black;
+}
 .by{
     height: 337px;
     margin-bottom: 0px;
@@ -394,8 +442,10 @@ a{
     margin-top: 2%;
 }
 
+
 .ij p{
     font-size: 30px;
+    
 }
 
 .img2 img{
@@ -403,6 +453,7 @@ a{
     margin-top: 1%;
    
 }
+
 .img2{
     position: relative;
 }
@@ -410,25 +461,63 @@ a{
 .img2 .btn{
     position: absolute;
     color: black;
-    font-weight: 350;
+    font-weight: 700;
     font-size: 20px;
-    left: 67px;
-    top:266px;
+    left: 18%;
+    top: 68%;
     border: rgb(0, 0, 0) solid;
-    border-radius: 25px;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    padding-left: 13px;
+    border-radius: 22px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 8px;
     width: 155.8px;
-    border-top-width: 1.600px;
-    border-bottom-width: 1.600px;
-    border-left-width: 1.600px;
-    border-right-width: 1.600px;
+    border-top-width: 1.500px;
+    border-bottom-width: 1.500px;
+    border-left-width: 1.500px;
+    border-right-width: 1.500px;
 }
+
+
 .img2 .btn:hover{
-    color: white;
-    border-color: white;
+    color: rgb(86, 35, 238);
+    border-color: rgb(86, 35, 238);
 }
+
+.hustlr img{
+    width: 100%;
+    margin-top: 1%;
+   
+}
+
+.hustlr{
+    position: relative;
+}
+
+.hustlr .btn{
+    position: absolute;
+    color: black;
+    font-weight: 700;
+    font-size: 20px;
+    left: 44%;
+    top: 68%;
+    border: rgb(0, 0, 0) solid;
+    border-radius: 22px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 8px;
+    width: 155.8px;
+    border-top-width: 1.500px;
+    border-bottom-width: 1.500px;
+    border-left-width: 1.500px;
+    border-right-width: 1.500px;
+}
+
+
+.hustlr .btn:hover{
+    color: rgb(86, 35, 238);
+    border-color: rgb(86, 35, 238);
+}
+
 .kl{
     width: 100%;
     text-align: center;
@@ -483,7 +572,7 @@ a{
     width: 100%;
     text-align: center;
     font-size: 30px;
-    margin-top: 50%;
+    /* margin-top: 50%; */
 }
 
 .perfect{

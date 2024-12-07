@@ -3,7 +3,7 @@ from app import views
 
 
 urlpatterns=[path('home/',views.home),
-             path('login/',views.log_users,name='login'),
+             path('login/',views.loguser,name='login'),
              path('eye/',views.eyeglass,name='eye'),
              path('si/', views.si),
              path('track/',views.track),
@@ -20,5 +20,6 @@ urlpatterns=[path('home/',views.home),
              path('cart/',views.ct,name='ct'),
              path('wishlist/',views.wish,name='wish'),
              path('contact/',views.contaact,name='contact'),
-             path('remove/',views.remove,name='remove')
+             path('remove/',views.remove,name='remove'),
+             path('slider-product/',views.sliders,name="slider-product")
              ]  

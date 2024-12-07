@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout 
 from django.shortcuts import render,redirect
-from .models import sign,products,category,slider,glass,shape,banner,cart,wishlist,google,contactus
+from .models import*
 from django.contrib.auth.models import User
 from django.contrib.auth import hashers
 from django.contrib import messages
@@ -13,7 +13,7 @@ import os
 def lo(request):
     g=glass.objects.all()
     if request.method=="POST":
-        name=request.POST.get("name")
+        username=request.POST.get("username")
         email=request.POST.get("email")
         password=request.POST.get("password")
         password=hashers.make_password(password)
@@ -24,7 +24,7 @@ def lo(request):
             messages.info(request,'Email Already Exists! Please Enter New Mail')
             return redirect("/lo/",{'data2':g[:5]})
             
-        User.objects.create(username=name,email=email,password=password)
+        User.objects.create(username=username,email=email,password=password)
 
         messages.success(request,'Account Created Succesfully')
         
@@ -33,7 +33,7 @@ def lo(request):
 
 
 
-def log_users(request): 
+def loguser(request): 
     d=category.objects.all()
     sl=slider.objects.all()
     g=glass.objects.all()
@@ -42,33 +42,29 @@ def log_users(request):
     for j in d:
         j.image1=os.path.basename(j.image1.url)
     if request.method=="POST":
-        email=request.POST.get("email")
+        username=request.POST.get("username")
         password=request.POST.get("password")
 
-        if not User.objects.filter(email = email).exists():
-            messages.warning(request,"Invalid Mail")
+        if not User.objects.filter(username = username).exists():
+            messages.warning(request,"Invalid Usename")
             return redirect('/login/')
         # user=sign.objects.filter(email=email,password=password)
 
-        user = authenticate(email=email,password=password)
+        user = authenticate(username = username, password = password)
 
-        print(email,password,user)
+        print(username,password,user)
         if user is None:
             messages.error(request,"Invalid Password")
             return redirect('/login/',{'data1':d,'slider':sl,'data2':g[:5]})
         else:
             login(request, user)
-            messages.success(request,"{{request.user}} you are lonin successfully")
+            messages.success(request,"you are lonin successfully")
             return redirect('/home/',{'data1':d,'slider':sl,'data2':g[:5]})
 
-            
-                # return render(request,'index.html',{'data1':d,'slider':sl,'data2':g[:5]})
-        # if users:
-        #     return render(request,'index.html',{"name":users[0].name})
     return render(request,'s.html',{'data1':d,'slider':sl,'data2':g[:5]})
 
 def logout_users(request):
-    d=category.objects.all()
+    d=category.objects.all()[:5]
     sl=slider.objects.all()
     g=glass.objects.all()
     for sd in sl:
@@ -92,7 +88,9 @@ def home(request):
     g=glass.objects.all()
     s=shape.objects.all()
     b=banner.objects.exclude(banner_name='default')
+    bnr=banners.objects.exclude(banners_name='default')
     print(b)
+    print(bnr)
     for shpe in s:
         shpe.image=os.path.basename(shpe.image.name)
     for sd in sl:
@@ -101,7 +99,9 @@ def home(request):
         j.image1=os.path.basename(j.image1.url)
     for i in b:
         i.banner_image=os.path.basename(i.banner_image.url)
-    return render(request,'index.html',{'data1':d[:5],'slider':sl,'data2':g[:5],'data3':s[:4],'data4':b})
+    for bn in bnr:
+        bn.banners_image=os.path.basename(bn.banners_image.url)
+    return render(request,'index.html',{'data1':d[:5],'slider':sl,'data2':g[:5],'data3':s[:4],'data4':b,'data5':bnr})
 
 
 def pwr(request):
@@ -165,7 +165,6 @@ def detail(request):
             i.airess6=os.path.basename(i.airess6.name)
             i.airess7=os.path.basename(i.airess7.name)
             i.airess8=os.path.basename(i.airess8.name)
-            i.airess9=os.path.basename(i.airess9.name)
         return render(request,'product detail.html',{'data':p,'data2':g[:5]})
     
 
@@ -221,6 +220,26 @@ def trending(request):
                 print(i.banner_name)
         return render(request,'eyeglasses.html',{'data':data,'data2':g[:5]})
     return render(request,('index.html'))
+
+def sliders(request):
+    g=glass.objects.all()
+    try:
+        if request.method=="POST":
+            slider_name=request.POST.get("slider_name")
+            slider_obj= get_object_or_404(slider, slider_name=slider_name)
+            print(slider_obj)
+            data=products.objects.filter(slider_name=slider_obj)
+            g=glass.objects.all()
+            for i in data:
+                i.image=os.path.basename(i.image.url)            
+            return redirect('/eye/',{'data':data,'data2':g[:5]})
+        else:
+            messages.error(request,"Invalid request method")
+            return redirect('/eye/',{'data':data,'data2':g[:5]})
+    except Exception as e:
+        print(f"Error: {e}")
+        messages.error(request,"A technical issues occurs, Please try again!")
+        return redirect('/eye/',{'data':data,'data2':g[:5]})
 
 def ct(request):
     print("hey")

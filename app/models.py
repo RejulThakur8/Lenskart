@@ -4,13 +4,35 @@ from django.contrib.auth.models import User
 # Create your models here. 
 
 class sign(models.Model):
-    name=models.CharField(max_length=50)
+    username=models.CharField(max_length=50)
     email=models.CharField(max_length=50)
     password=models.CharField(max_length=50)
+    first_name=models.CharField(max_length=50,default="fname")
+    last_name=models.CharField(max_length=40,default="lasname")
     def __str__(self):
-        return self.name
+        return self.username
     
+class frame(models.Model):
+    frame_image=models.ImageField(upload_to='statics/images',default="frameImage")
+    frame_name=models.CharField(max_length=50,default='square')
+    def __str__(self):
+        return self.frame_name
 
+class size(models.Model):
+    frame_size=models.CharField(max_length=50,default='medium')
+    def __str__(self):
+        return self.frame_size
+    
+class color(models.Model):
+    frame_color=models.CharField(max_length=50,default='black')
+    def __str__(self):
+        return self.frame_color
+    
+class brands(models.Model):
+    brand=models.CharField(max_length=50,default='air')
+    def __str__(self):
+        return self.brand
+    
 class category(models.Model):
      image1=models.ImageField(upload_to='statics/images',default='b')
      category_name=models.CharField(max_length=50)
@@ -30,11 +52,25 @@ class banner(models.Model):
     banner_image=models.ImageField(upload_to='statics/images',default='b')
     def __str__(self):
         return self.banner_name
+
+class banners(models.Model):
+    banners_image=models.ImageField(upload_to='statics/images',default="air")
+    banners_name=models.CharField(max_length=50,null=True)
+    banner_head=models.CharField(max_length=60,default='Hustlr')
+
+    def __str__(self):
+        return self.banners_name
     
 class glass(models.Model):
     glass_name=models.CharField(max_length=50)
     def __str__(self):
         return self.glass_name
+    
+class slider(models.Model):
+    image=models.ImageField(upload_to='statics/images',default='i')
+    slider_name = models.CharField(max_length=60)
+    def __str__(self):
+        return self.slider_name
     
 
 class products(models.Model):
@@ -44,11 +80,16 @@ class products(models.Model):
     description=models.CharField(max_length=100,default='d')
     price=models.IntegerField(null=True)
     rating=models.CharField(max_length=50,default='d')
-    offer=models.CharField(max_length=100,default='d') 
+    offer=models.CharField(max_length=100,default='d')
+    banners_name=models.ForeignKey(banners,related_name='ban_name',on_delete=models.CASCADE,default=10) 
     category_name=models.ForeignKey(category,related_name='categoy_name',on_delete=models.CASCADE,default=5)
     shape_name=models.ForeignKey(shape,related_name='shape_name1',on_delete=models.CASCADE,default=5)
     banner_name=models.ForeignKey(banner,related_name='banner_name1',on_delete=models.CASCADE,default=2)
     glass_name=models.ForeignKey(glass,related_name='glass_name2',on_delete=models.CASCADE,default=5)
+    frame_size=models.ForeignKey(size,related_name='size2',on_delete=models.CASCADE,default=20)
+    brand=models.ForeignKey(brands,related_name='brand2',on_delete=models.CASCADE,default=10)
+    frame_color=models.ForeignKey(color,related_name='color2',on_delete=models.CASCADE,default=40)
+    slider_name=models.ForeignKey(slider,related_name='s_name',on_delete=models.CASCADE)
     image2=models.ImageField(upload_to='statics/images',default='d')
     image3=models.ImageField(upload_to='statics/images',default='d')
     image4=models.ImageField(upload_to='statics/images',default='d')
@@ -64,9 +105,7 @@ class products(models.Model):
     description1=models.CharField(max_length=100,default='d')
     rating1=models.CharField(max_length=200,default='d')
     price=models.IntegerField(null=True)
-    offer2=models.CharField(max_length=200,default='d')
     caption=models.CharField(max_length=200,default='d')
-    # Quantity=models.CharField(max_length=50,default='d')
     airess1=models.ImageField(upload_to='statics/images',default='e')
     airess2=models.ImageField(upload_to='statics/images',default='e')
     airess3=models.ImageField(upload_to='statics/images',default='e')
@@ -75,8 +114,6 @@ class products(models.Model):
     airess6=models.ImageField(upload_to='statics/images',default='e')
     airess7=models.ImageField(upload_to='statics/images',default='e')
     airess8=models.ImageField(upload_to='statics/images',default='e')
-    airess9=models.ImageField(upload_to='statics/images',default='e')
-    airess10=models.ImageField(upload_to='statics/images',default='e')
 
     def __str__(self):
         return self.pro_d
@@ -102,11 +139,6 @@ class contactus(models.Model):
     email = models.EmailField()
     message = models.TextField(default="A")
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-
-   
-
-class slider(models.Model):
-    image=models.ImageField(upload_to='statics/images',default='i')
 
 
 

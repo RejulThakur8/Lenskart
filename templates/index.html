@@ -2,14 +2,14 @@
 
 {% block start %}
 {% load static %}
-<div class="cd">
 
+<div class="cd">
     {% for j in data1 %}
     <form method="post" action="/eye/">
         {% csrf_token %}
         <div class="box">
             <div class="g">
-                <a href="" data-bs-target="1_round"><img src="{% static 'images/' %}{{j.image1}}"
+                <a href="/eye/" data-bs-target="1_round"><img src="{% static 'images/' %}{{j.image1}}"
                         style="height: 105px; margin-top: 6px;">
                     <input type="hidden" id = "glass" value="{{j.category_name}}" name="category">
                     <input type="submit" id = "glass" value="{{j.category_name}}"
@@ -20,56 +20,28 @@
     </form>
     {% endfor %}
 </div>
-<!-- product id
-product name 
-quantity
-price
-user name -->
 
-
-<!-- <section class="sc">
-
-    <div class="ef">
-        <div class="slide">
-            <img src="https://static1.lenskart.com/media/desktop/img/sep22/jj-titanium/Web-Banner.gif">
-        </div>
-        <div class="slide">
-            <img src="https://static1.lenskart.com/media/desktop/img/nov23/gulmarg/Web-banner%20option%201-min.png">
-        </div>
-        <div class="slide">
-            <img src="https://static1.lenskart.com/media/desktop/img/sep22/jj-titanium/Web-Banner.gif">
-        </div>
-        <div class="slide">
-            <img src="https://static1.lenskart.com/media/desktop/img/republic/chic-metal/web.jpg">
-        </div>
-        <div class="slide">
-            <img src="https://static5.lenskart.com/media/uploads/wedding-desk.jpg">
-        </div>
-    </div>
-
-
-    <span class="arrow left">&#10094;</span>
-    <span class="arrow right">&#10095;</span>
-</section> -->
-
-<div class="sli">
+<div class="sli mt-1">
     <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
-            {% for sd in slider %}
-            <div class="carousel-item active">
-                <img src="{% static 'images/' %}{{sd.image}}" class="d-block w-100">
-            </div>
-            {% endfor %}
+            <form method="POST" action="/slider-product/">
+                {% csrf_token %}
+                {% for sd in slider %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <img src="{% static 'images/' %}{{sd.image}}" class="d-block w-100" alt="...">
+                    <input type='hidden' value="{{sd.slider_name}}" name="slider_name">
+                    <input type='submit' class="btn banner-btn btn-outline-light position-absolute fs-5" value="{{sd.slider_name}}" name="slider_name">
+                </div>
+                {% endfor %}
+            </form>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true" style="width: 45px;height: 276px;"></span>
-            <span class="visually-hidden">Previous</span>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true" style="width: 45px;height: 276px;"></span>
-            <span class="visually-hidden">Next</span>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
         </button>
     </div>
 </div>
@@ -122,34 +94,7 @@ user name -->
                             </form>
                             {% endfor %}
                         </div>
-                        <!-- <div>
-                            <a class="getGaData" data-event="Banner Clicks" data-category="Banner Clicks"
-                                data-action="WEAR_THE_TREND" data-label="2_cat_eye"
-                                href="/eyeglasses/brands/vincent-chase-eyeglasses/cat-eye.html">
-                                <img src="https://static1.lenskart.com/media/desktop/img/Sep21/cateeye.jpg">
-                                <div class="trendtitle">Cat-Eye</div>
-                                <div class="trendcta">Explore</div>
-                            </a>
-                        </div>
-                        <div>
-                            <a class="getGaData" data-event="Banner Clicks" data-category="Banner Clicks"
-                                data-action="WEAR_THE_TREND" data-label="3_club_master"
-                                href="/eyewear/promotion/frame-shape/clubmasters.html">
-                                <img src="https://static1.lenskart.com/media/desktop/img/Sep21/clubmaster.jpg">
-                                <div class="trendtitle">Clubmaster</div>
-                                <div class="trendcta">Explore</div>
-                            </a>
-                        </div>
-                        <div>
-                            <a class="getGaData" data-event="Banner Clicks" data-category="Banner Clicks"
-                                data-action="WEAR_THE_TREND" data-label="4_transparent"
-                                href="/eyeglasses/promotions/vc-transparent.html">
-                                <img src="https://static1.lenskart.com/media/desktop/img/Sep21/trans.jpg">
-                                <div class="trendtitle">Transparent</div>
-                                <div class="trendcta">Explore</div>
-                            </a>
-                        </div> -->
-                        <div class="rightarrow1">❯</div>
+                        {% comment %} <div class="rightarrow1">❯</div> {% endcomment %}
                     </div>
                     <div class="SLIDE2 flex" style="display:none">
                         <div class="leftarrow2">❮</div>
@@ -198,36 +143,12 @@ user name -->
 </div>
 
 
-<!-- <div class="n container">
-                <div class="box70">
-                    <div class="tr">
-                        <div class="wear">
-                            <p>WEAR THE</p>
-                        </div>
-                        <div class="trend">
-                            <p>TREND</p>
-                        </div>
-                        <div class="hot">
-                            <p>Our hottest collections</p>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="imgs0">
-                    <img src="https://static1.lenskart.com/media/desktop/img/Sep21/image179.png" id="im" class="rounded float-start" alt="..." >
-                    <img src="https://static1.lenskart.com/media/desktop/img/Sep21/cateeye.jpg" class="rounded float-end" alt="...">
-                    <img src="https://static1.lenskart.com/media/desktop/img/Sep21/clubmaster.jpg" class="rounded float-start" alt="...">
-                    <img src="https://static1.lenskart.com/media/desktop/img/Sep21/trans.jpg" class="rounded float-end" alt="...">
-
-                </div>
-            </div> -->
-
 <div class="john">
     {% for i in data4 %}
     <form method="post" action="/johnj/">
         {% csrf_token %}
         <div class="ij">
-            <p class="hr-lines">{{i.banner_head}}</p>
+            <p class="hr-lines fw-medium">{{i.banner_head}}</p>
             <div class="img2">
                 <img src="{% static 'images/' %}{{i.banner_image}}">
                 <input type="hidden" value="{{i.banner_name}}" name="banner" class="btn">
@@ -239,32 +160,21 @@ user name -->
 </div>
 
 
-<!-- <div class="hustlr">
-    {% for i in data4 %}
-    <form method="post" action="/tank">
+<div class="banners">
+    {% for i in data5 %}
+    <form method="post" action="/johnj/">
         {% csrf_token %}
-        <div class="kl">
-            <p class="hr-lines">AS SEEN ON SHARK TANK</p>
-            <div class="img3">
-
-                <img src="https://static1.lenskart.com/media/desktop/img/Dec22/1-Dec/Homepage-Banner-web.gif">
-                <input type="hidden" value="{{i.banner_name}}" name="banner" class="btn">
-                <input type="submit" value="{{i.banner_name}}" style="width: 100px;color: aquamarine;">
+        <div class="banners-content text-center mt-3">
+            <p class="hr-lines fs-3 fw-medium">{{i.banner_head}}</p>
+            <div class="hustlr">
+                <img src="{% static 'images/' %}{{i.banners_image}}">
+                <input type="hidden" value="{{i.banners_name}}" name="banner" class="btn">
+                <input type="submit" value="{{i.banners_name}}" class="btn">
             </div>
         </div>
     </form>
     {% endfor %}
-</div> -->
-
-
-
-<!-- <div class="mn">
-    <p class="hr-lines">TRENDING SUNGLASSES</p>
-    <div class="img5">
-        <img src="https://static1.lenskart.com/media/desktop/img/Jan23/sunglasses/Sun-Banner-web.gif">
-    </div>
-</div> -->
-
+</div>
 
 
 
@@ -336,19 +246,10 @@ user name -->
                 src="https://static5.lenskart.com/media/catalog/product/pro/1/thumbnail/371x178/9df78eab33525d08d6e5fb8d27136e95//l/i/olive-full-rim-wayfarer-lenskart-hustlr-lh-e16985-w-c2-eyeglasses_img_2273_14march24.jpg">
         </div>
         <span class="ra">&#10095;</span>
-        <!-- <div class="box14">
-                            <img src=https://static5.lenskart.com/media/catalog/product/pro/1/thumbnail/371x178/9df78eab33525d08d6e5fb8d27136e95//l/i/crystal-full-rim-wayfarer-lenskart-hustlr-lh-e16985-w-c5-eyeglasses_img_2262_14march24.jpg>
-                        </div>
-                        <div class="box15">
-                            <img src=https://static5.lenskart.com/media/catalog/product/pro/1/thumbnail/371x178/9df78eab33525d08d6e5fb8d27136e95//v/i/vincent-chase-vc-e13634-ful-ram-ale-metl-stlbr-c1-eyeglasaas_g_4921.jpg>
-                        </div>
-                        <div class="box16">
-                            <img src=https://static5.lenskart.com/media/catalog/product/pro/1/thumbnail/371x178/9df78eab33525d08d6e5fb8d27136e95//l/i/denim-full-rim-wayfarer-lenskart-hustlr-lh-e16985-w-c1-eyeglasses_img_2293_14march24.jpg>
-                        </div> -->
     </div>
 </div>
 
-<div class="sg">
+<div class="sg">z
     <div class="sunglas">
         <p style="font-size: 23px;">SUNGLASSES</p>
         <a href="/sunglasses">View Range</a>
@@ -368,9 +269,6 @@ user name -->
                 src=https://static5.lenskart.com/media/catalog/product/pro/1/thumbnail/371x178/9df78eab33525d08d6e5fb8d27136e95//v/i/maroon-brown-full-rim-round-vincent-chase-polarized-havana-vc-s14596-c2-sunglasses_g_8671_14_3_22.jpg>
         </div>
         <span class="ra">&#10095;</span>
-        <!-- <img src=https://static5.lenskart.com/media/catalog/product/pro/1/thumbnail/371x178/9df78eab33525d08d6e5fb8d27136e95//v/i/matte-black-grey-solid-full-rim-wayfarer-vincent-chase-polarized-air-la-s13164--c1-polarized-sunglasses_vincent-chase-vc-s13164-c1-sunglasses_g_1663_5july23.jpg>
-                        <img src=https://static5.lenskart.com/media/catalog/product/pro/1/thumbnail/371x178/9df78eab33525d08d6e5fb8d27136e95//v/i/gunmetal-black-green-full-rim-geometric-vincent-chase-polarized-the-metal-edit-vc-s12917-c3-sunglasses_vincent-chase-vc-s12917-c3-sunglasses_sunglasses_g_4524_1_5july23.jpg>
-                        <img src=https://static5.lenskart.com/media/catalog/product/pro/1/thumbnail/371x178/9df78eab33525d08d6e5fb8d27136e95//v/i/gold-brown-full-rim-round-vincent-chase-the-metal-edit-vc-s13112-c10-polarized-sunglasses_vincent-chase-vcs13112-c10-c10-sunglasses_sunglasses_g_8974_28july23.jpg> -->
     </div>
 </div>
 

@@ -11,9 +11,8 @@
         Login
         <span class="underline"></span>
       </button>
-      <form action="/login/" method="post" class="form form-login">
+      <form action="/login/" method="POST" class="form form-login">
         {% csrf_token %}
-
         <fieldset>
           {% if messages %}
 
@@ -28,8 +27,8 @@
 
           <legend>Please, enter your email and password for login.</legend>
           <div class="input-block">
-            <label for="email">E-mail</label>
-            <input id="email" type="text" name="email" required>
+            <label for="Name">Username</label>
+            <input id="Name" type="text" name="username" required>
           </div>
           <div class="input-block">
             <label for="password">Password</label>
@@ -59,8 +58,8 @@
           {% endif %}
           <legend>Please, enter your email, password and password confirmation for sign up.</legend>
           <div class="input-block">
-            <label for="signup-name">Name</label>
-            <input id="signup-name" type="text" name="name" required>
+            <label for="signup-name">Username</label>
+            <input id="signup-name" type="text" name="username" required>
           </div>
           <div class="input-block">
             <label for="signup-email">E-mail</label>
