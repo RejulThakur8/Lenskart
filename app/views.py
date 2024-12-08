@@ -121,7 +121,10 @@ def eyeglass(request):
     if request.method=="POST":
         category1=request.POST.get("category")
         print(category1.title())
-        g=glass.objects.all()
+        g=glass.objects.all()[:5]
+        framee=frame.objects.all()
+        bra_nd=brands.objects.all()
+        print(bra_nd)
         cat=category.objects.get(category_name=category1.title())
         if cat:
             data=products.objects.filter(category_name=cat)
@@ -129,7 +132,9 @@ def eyeglass(request):
             for i in data:  
                 i.image=os.path.basename(i.image.name)
                 print(i.category_name)
-        return render(request,'eyeglasses.html',{'data':data,'data2':g[:5]})
+            for i in framee:
+                i.frame_image=os.path.basename(i.frame_image.url)
+        return render(request,'eyeglasses.html',{'data':data,'data2':g,'frame':framee,'brands':bra_nd})
     return render(request,'pw.html')
 
 
@@ -221,6 +226,26 @@ def trending(request):
         return render(request,'eyeglasses.html',{'data':data,'data2':g[:5]})
     return render(request,('index.html'))
 
+def framee(request):
+    g=glass.objects.all()[:5]
+    framees=frame.objects.all()
+    bra_nd=brands.objects.all()
+    try:
+        if request.method=="POST":
+            frame_name=request.POST.get("frame_name")
+            frame_obj=get_object_or_404(frame, frame_name=frame_name)
+            data=products.objects.filter(frame_name=frame_obj)
+            for i in data:
+                i.image=os.path.basename(i.image.url)
+            for i in framees:
+                i.frame_image=os.path.basename(i.frame_image.url)
+            return render(request,'eyeglasses.html',{'data':data,'data2':g,'frame':framees,'brands':bra_nd})
+    except Exception as e:
+        print(f"Error: {e}")
+        messages.error(request,"Your Query Does Not Found Please try again!")
+        return render(request,'eyeglasses.html',{'data':data,'data2':g,'frame':framees,'brands':bra_nd})
+
+
 def sliders(request):
     g=glass.objects.all()
     try:
@@ -229,21 +254,48 @@ def sliders(request):
             slider_obj= get_object_or_404(slider, slider_name=slider_name)
             print(slider_obj)
             data=products.objects.filter(slider_name=slider_obj)
+            print(data)
             g=glass.objects.all()
             for i in data:
-                i.image=os.path.basename(i.image.url)            
-            return redirect('/eye/',{'data':data,'data2':g[:5]})
+                i.image=os.path.basename(i.image.url) 
+                           
+            return render(request,'eyeglasses.html',{'data':data,'data2':g,})
         else:
             messages.error(request,"Invalid request method")
-            return redirect('/eye/',{'data':data,'data2':g[:5]})
+            return render(request,'eyeglasses.html',{'data':data,'data2':g})
     except Exception as e:
         print(f"Error: {e}")
         messages.error(request,"A technical issues occurs, Please try again!")
-        return redirect('/eye/',{'data':data,'data2':g[:5]})
+        return render(request,'eyeglasses.html',{'data':data,'data2':g})
+    
+def brnd(request):
+    g=glass.objects.all()[:5]
+    framee=frame.objects.all()
+    bra_nd=brands.objects.all()
+    try:
+        if request.method=="POST":
+            brand_name=request.POST.get("brand")
+            brand_obj= get_object_or_404(brands, brand=brand_name)
+            print(brand_obj)
+            data=products.objects.filter(brand=brand_obj)
+            print(data)
+            g=glass.objects.all()[:5]
+            for i in data:
+                i.image=os.path.basename(i.image.url) 
+            for i in framee:
+                i.frame_image=os.path.basename(i.frame_image.url)           
+            return render(request,'eyeglasses.html',{'data':data,'data2':g,'frame':framee,'brands':bra_nd})
+        else:
+            messages.error(request,"Invalid request method")
+            return render(request,'eyeglasses.html',{'data':data,'data2':g,'frame':framee,'brands':bra_nd})
+    except Exception as e:
+        print(f"Error: {e}")
+        messages.error(request,"A technical issues occurs, Please try again!")
+        return render(request,'eyeglasses.html',{'data':data,'data2':g,'frame':framee,'brands':bra_nd})
 
 def ct(request):
     print("hey")
-    g=glass.objects.all()
+    g=glass.objects.all()[:5]
     if request.method=="POST":
        Cart = products.objects.get(id=request.POST["iid"])
        qyt = request.POST['quantity']
@@ -255,7 +307,7 @@ def ct(request):
     for i in data:
           i.pro_d.image=os.path.basename(i.pro_d.image.name)
           Total+=int(i.price)
-    return render(request,'cart.html',{'data':data,'Total':Total,'data2':g[:5]})
+    return render(request,'cart.html',{'data':data,'Total':Total,'data2':g,})
 
 def remove(request):
     if request.method=="POST":
@@ -271,7 +323,7 @@ def remove(request):
 
 def wish(request):
     print("wishh")
-    g=glass.objects.all()
+    g=glass.objects.all()[:5]
     if request.method=="POST":
         wname=request.POST.get('proname')
         print(wname)
@@ -284,11 +336,11 @@ def wish(request):
     data3=wishlist.objects.filter(user_id=request.user)
     for i in data3:
         i.pro_d.image=os.path.basename(i.pro_d.image.name)
-    return render(request,'wishlist.html',{'data':data3,'data2':g[:5]})  
+    return render(request,'wishlist.html',{'data':data3,'data2':g})  
 
 
 def contaact(request):
-    g=glass.objects.all()
+    g=glass.objects.all()[:5]
     if request.method=="POST":
         fname = request.POST.get("First name")
         lname = request.POST.get("Last name")
@@ -297,7 +349,7 @@ def contaact(request):
 
         contactus.objects.create(fname = fname,lname=lname,email=email,message=message,user=request.user)
 
-    return render(request,'contact.html',{'data2':g[:5]})
+    return render(request,'contact.html',{'data2':g})
 
 def gogle(request):
     go=google.objects.all()

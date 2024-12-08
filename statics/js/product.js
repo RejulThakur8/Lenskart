@@ -20,7 +20,7 @@
 
 
 const subtract = document.querySelector(".subtraction"),
- number = document.querySelector(".num"),
+ number = document.querySelector("#quantities"),
  add = document.querySelector(".addition");
 
 let a = 1;
@@ -28,13 +28,13 @@ let a = 1;
 subtract.addEventListener('click', ()=>{
     if(a > 1){
         a--;
-        a = (a < 10) ? + a : a;
-        number.innerHTML = a;
+        // a = (a < 10) ? + a : a;
+        number.value = a;
     }
 });
 
 add.addEventListener('click', ()=>{
     a++;
-    a = (a < 10) ?  + a : a;
-    number.innerHTML = a;
+    // a = (a < 10) ?  + a : a;
+    number.value = a;
 });

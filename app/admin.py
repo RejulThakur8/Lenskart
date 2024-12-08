@@ -4,7 +4,7 @@ from .models import sign,products,category,slider,glass,shape,banner,cart,wishli
 
 
 class productsAdmin(admin.ModelAdmin):
-    list_display=['title','description','price','rating','category_name','shape_name','banner_name','glass_name','name']
+    list_display=['title','description','price','rating','category_name','shape_name','banner_name','glass_name']
 
 admin.site.register(sign)
 admin.site.register(products,productsAdmin)

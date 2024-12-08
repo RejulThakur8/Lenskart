@@ -46,16 +46,23 @@
             {% csrf_token %}
             <input type="hidden" name="iid" value="{{i.id}}">
             <div class="detail">
-                <p class="text-primary">{{i.name}}</p>
+                <p class="text-primary">{{i.title}}</p>
                 <h1>{{i.pro_d}}</h1>
                 <p>{{i.description1}}</p>
-                <h5 class="">{{i.rating1}}</h5>
+                <h5 class="">{{i.rating}}</h5>
                 <h2 class="text-success">₹{{i.price}}</h2>
                 <h3 class="text-danger">{{i.offer}}</h3>
-                <div class="q ms-0 d-flex">
-                    <h4 class="m-0 ps-0">Quantity:</h4>
-                    <input type="number" class="rounded ms-3" placeholder="Quantity" name="quantity" id="quantity" value="1" style="width:30px">
-                </div>
+                {% comment %} <div class="q ms-0 d-flex"> {% endcomment %}
+                    {% comment %} <h4 class="m-0 ps-0">Quantity:</h4> {% endcomment %}
+                    {% comment %} <input type="number" class="rounded ms-3" placeholder="Quantity" name="quantity" id="quantity" value="1" style="width:30px"> {% endcomment %}
+                    <section class="quantity d-flex m-4">
+                        <div class="quantities border border-black d-flex w-50 fs-4 align-items-center rounded">
+                          <span class="subtraction position-start bg-primary rounded-start w-50 m-0">-</span>
+                          <input name="quantity" class="num w-50 text-center" id="quantities" value="1">
+                          <span class="addition bg-primary rounded-end w-50 m-0">+</span>
+                        </div>
+                    </section>
+                {% comment %} </div> {% endcomment %}
                 <input type="hidden" name="proname" value="{{i.pro_d}}">
                 <input type="hidden" name="price" value="{{i.price}}">
 

@@ -83,16 +83,12 @@ h2{
 .head{
     font-size: 25px;
 }
-.quantities{
-    width: 47%;
-    border:rgb(32, 143, 255) solid;
-}
 
 .quantities span{
-    width: 35%;
     text-align: center;
     font-weight: bold;
     cursor: pointer;
+    height: 39px;
 }
 
 .quantities span.num{

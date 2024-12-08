@@ -3,58 +3,124 @@
 {% block start %}
 
 {% load static %}
-{% if data %}
+
+
 
 <div class="p-4 shadow bg-light"></div>
 <div class="conatiner-fluid d-flex">
-    <div class="pic w-100 mt-2 ms-4 me-2">
-        <div class="container w-100 border m-1 p-4 rounded" style="margin-top: 6%;">
-            {% for i in data %}
-        
-            <form method="post" action="/shop/">
-                {% csrf_token %}
-                <div class="by" style="height: 370px;padding-left: 0px;">
-        
-                    <div class="img-contain">
-                        <img src="{% static 'images/' %}{{i.image}}" style="height: 150px;margin-top: 10px;width: 300px;margin-top: 2px;">
-        
-                        <a href="/wishlist/" class="cartbtn" style="top: 6px;">
-                            <i class="fa-regular fa-heart"></i>
-                        </a>
-                    </div>
-                    <div class="str">
-                        <div class="pr">
-                            <h6>{{i.rating}}</h6>
-                        </div>
-                        <h4>{{i.title}}</h4>
-                        <input type="hidden" name="title" value="{{i.title}}">
-                        <h6>{{i.description}}</h6>
-                        <h5>₹{{i.price}}</h5>
-                    </div>
-                    <p style="width: 320px;padding-top: 7px;padding-bottom: 7px;">{{i.offer}}</p>
-                    <input type="submit" value="Buy Now" style="height: 38px; border-radius: 4px;">
+    {% comment %} <div class="categ mt-3 ms-4 me-0 mb-0 ps-2 pe-5 pt-2 border rounded bg-secondary-subtle" style="width:200px">
+        <div class="accordion m-0" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <h6>FRAME TYPE</h6>
+                </button>
+              </h2>
+              {% for i in frame %}
+              <div id="collapseOne" class="accordion-collapse collapse show col-md-12" data-bs-parent="#accordionExample">
+                <div class="accordion-body border border-black p-2 w-50 m-0">
+                    <img src="{% static 'images/' %}{{i.frame_image}}" alt="{{i.image}}">
+                    <h6 class="text-center">{{i.frame_name}}</h6>
                 </div>
-        
-            </form>
-        
-            {% endfor %}
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+    </div> {% endcomment %}
+    <div class="categ mt-3 ms-2 me-0 mb-0 ps-2 pe-2 pt-2 border rounded bg-secondary-subtle" style="width: 300px;"> <!-- Adjust width if needed -->
+        <div class="accordion m-0 w-100" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <h6>FRAME TYPE</h6>
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                    <div class="accordion-body p-2">
+                        <form method="POST" action="/frame-product/">
+                            {% csrf_token %}
+                            <div class="row m-0"> <!-- Bootstrap row for product layout -->
+                                {% for i in frame %}
+                                <div class="col-6 col-md-6 mb-2 m-0 p-1"> <!-- 2 items per row -->
+                                    <div class="border border-black p-1 w-75 m-0 text-center">
+                                        <img src="{% static 'images/' %}{{i.frame_image}}" alt="{{i.image}}" class="img-fluid">
+                                        <input type="hidden" value="{{i.frame_name}}" name="frame_name">
+                                        <input type="submit" value="{{i.frame_name}}" name="frame_name" class="btn m-0 p-0">
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        <h6>Brands</h6>
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                    <div class="accordion-body p-1">
+                        <form method="POST" action="/brand/">
+                            {% csrf_token %}
+                            <div class="row m-0"> <!-- Bootstrap row for product layout -->
+                                {% for i in brands %}
+                                <div class="col-6 m-0 mb-1 p-0"> <!-- 2 items per row -->
+                                    <div class="text-center">
+                                        <input type="hidden" value="{{i.brand}}" name="brand">
+                                        <input type="submit" value="{{i.brand}}" class="btn btn-outline-primary p-1">
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-{% else %}
-
-        {% if message %}
-
-        {% for message in messages %}
-
-        <div class="alert alert-{{messages.tags}}" role="alert">
-            {{message}}
+    <div class="content flex-grow-1 ms-2"> 
+        {% if data %}
+        <div class="pic w-100 mt-2 ms-4 me-2">
+            <div class="container w-100 border m-1 p-4 rounded" style="margin-top: 6%;">
+                {% for i in data %}
+            
+                <form method="post" action="/shop/">
+                    {% csrf_token %}
+                    <div class="by" style="height: 370px;padding-left: 0px;">
+            
+                        <div class="img-contain">
+                            <img src="{% static 'images/' %}{{i.image}}" style="height: 150px;margin-top: 10px;width: 300px;margin-top: 2px;">
+            
+                            <a href="/wishlist/" class="cartbtn" style="top: 6px;">
+                                <i class="fa-regular fa-heart"></i>
+                            </a>
+                        </div>
+                        <div class="str">
+                            <div class="pr">
+                                <h6>{{i.rating}}</h6>
+                            </div>
+                            <h4>{{i.title}}</h4>
+                            <input type="hidden" name="title" value="{{i.title}}">
+                            <h6>{{i.description}}</h6>
+                            <h5>₹{{i.price}}</h5>
+                        </div>
+                        <p style="width: 320px;padding-top: 7px;padding-bottom: 7px;">{{i.offer}}</p>
+                        <input type="submit" value="Buy Now" style="height: 38px; border-radius: 4px;">
+                    </div>
+                </form>
+            
+                {% endfor %}
+            </div>
         </div>
 
-        {% endfor %}
-
+        {% else %}
+        <div class="alert alert-danger mt-3" role="alert">
+            Product Not Found Try Again!
+        </div>
         {% endif %}
-
-{% endif %}
-
+    </div>
+</div>
 {% endblock %}

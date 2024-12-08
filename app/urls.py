@@ -21,5 +21,7 @@ urlpatterns=[path('home/',views.home),
              path('wishlist/',views.wish,name='wish'),
              path('contact/',views.contaact,name='contact'),
              path('remove/',views.remove,name='remove'),
-             path('slider-product/',views.sliders,name="slider-product")
+             path('slider-product/',views.sliders,name="slider-product"),
+             path('frame-product/',views.framee,name="frame-product"),
+             path('brand/',views.brnd,name="brand"),
              ]  
